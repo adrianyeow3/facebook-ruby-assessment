@@ -1,0 +1,14 @@
+<h1> I am user </h1>
+<form method="post" action="/logout">
+<input type="submit" value="logout">
+</form>
+<form method="post" action="/comment">
+<textarea name="user[comment]" placeholder="Add your comment here"></textarea>
+<input type="submit" value="comment">
+</form>
+
+
+
+<% @posts.each do |post| %>
+	<%= post.my_post %>
+<% end %> 
