@@ -33,12 +33,35 @@ get "/users/:user_id" do
 	erb :'/static/profile'
 end
 
-post '/comment' do
-	@posts = current_user.posts.new(my_post: params[:user][:comment])
+post '/post' do
+	@posts = current_user.posts.new(my_post: params[:user][:post])
 	if @posts.save
 		redirect "/users/#{current_user.id}"
 	else
 		redirect "/users/#{current_user.id}"
 	end
+end
+
+post '/comment/:post_id' do
+	post = Post.find(params[:post_id])
+	@comment = post.comments.new(my_comment: params[:user][:comment])
+	if @comment.save
+		redirect "/users/#{current_user.id}"
+	else
+		redirect "/users/#{current_user.id}"
+	end
+end
+
+post "/post/:post_id/destroy" do
+# get '/users/:comment_id/edit'
+	post = Post.find(params[:post_id])
+	post.destroy
+	redirect "/users/#{current_user.id}"
+end
+# end
+post "/post/:post_id/edit" do
+	post = Post.find(params[:post_id])
+	post.update(my_post: params[:user][:post])
+	redirect "/users/#{current_user.id}"
 end
 

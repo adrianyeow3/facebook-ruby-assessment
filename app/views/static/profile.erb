@@ -2,13 +2,43 @@
 <form method="post" action="/logout">
 <input type="submit" value="logout">
 </form>
-<form method="post" action="/comment">
-<textarea name="user[comment]" placeholder="Add your comment here"></textarea>
-<input type="submit" value="comment">
+
+<form method="post" action="/post">
+<textarea name="user[post]" placeholder="Add your post here"></textarea>
+<input type="submit" value="post">
 </form>
 
-
-
+<table style= 'border: 1px solid black;'>
+<th>Id</th>
+<th>Email</th>
+<th>Post</th>
 <% @posts.each do |post| %>
-	<%= post.my_post %>
+<% if @user.id == post.user.id %>
+<th>Edit</th>
+<th>Delete</th>
+<% end %>
+<% end %>
+<th>Comment</th>
+<% @posts.each do |post| %>
+  <tr>
+  <td><%= post.user.id %></td>
+  <td style= 'border: 1px solid black;'><%= post.user.email %></td>
+	<td><%= post.my_post %></td>
+  <% if @user.id == post.user.id %>
+
+  <td><form method="post" action="/post/<%= post.id %>/edit">
+  <textarea name="user[post]" placeholder="Change your post here"></textarea>
+  <input type="submit" value="Edit"></form></td>
+
+  <td><form method="post" action="/post/<%= post.id %>/destroy">
+  <input type="submit" value="Delete"></form></td>
+  <% end %>
+  <td><form method="post" action="/comment/<%= post.id %>">
+  <textarea name="user[comment]" placeholder="Comment here"></textarea>
+  <input type="submit" value="comment"></form></td>
+  <% post.comments.each do |comment| %>
+  <td><%= comment.my_comment %></td>
+  <% end %>
+  </tr>
 <% end %> 
+</table>

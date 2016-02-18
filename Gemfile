@@ -15,7 +15,7 @@ gem 'bcrypt'
 gem 'activerecord'
 gem 'activesupport'
 gem 'sinatra-activerecord'
-
+gem 'byebug'
 # Adding Database elements
 gem 'pg'
 
